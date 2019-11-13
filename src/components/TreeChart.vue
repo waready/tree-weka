@@ -2,21 +2,29 @@
   <div>
       <table v-if="treeData.name">
         <tr>
-          <td :colspan="treeData.children ? treeData.children.length * 2 : 1" :class="{parentLevel: treeData.children, extend: treeData.children && treeData.extend}">
+          <td :colspan="treeData.children ? treeData.children.length * 2 : 1"
+               :class="{parentLevel: treeData.children, extend: treeData.children && treeData.extend}">
+
             <div :class="{node: true, hasMate: treeData.mate}">
               <div class="person" @click="$emit('click-node', treeData)">
-                <div class="avat">
-                  relaicon
+                  <div v-if="treeData.padre" class="color">
+                    <div class="name">{{treeData.name}}</div>
+                  </div>
+                  <div v-else>
+                    <div class="name">{{treeData.name}}</div>
+                  </div>
+                <!-- <div class="avat">
                   <img :src="treeData.image_url" />
-                </div>
-                <div class="name">{{treeData.name}}</div>
+                </div> -->
+
+                
               </div>
-              <div class="person" v-if="treeData.mate" @click="$emit('click-node', treeData.mate)">
+              <!-- <div class="person" v-if="treeData.mate" @click="$emit('click-node', treeData.mate)">
                 <div class="avat">
                   <img :src="treeData.mate.image_url" />
                 </div>
                 <div class="name">{{treeData.mate.name}}</div>
-              </div>
+              </div> -->
             </div>
             <div class="extend_handle" v-if="treeData.children" @click="toggleExtend(treeData)"></div>
           </td>
@@ -71,6 +79,14 @@ export default {
 </script>
 
 <style scoped>
+.color{
+background-color: aqua;   
+    height:50px;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    
+}
 table{border-collapse: separate!important;border-spacing: 0!important;}
 td{position: relative; vertical-align: top;padding:0 0 50px 0;text-align: center; }
 
